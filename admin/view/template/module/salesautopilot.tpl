@@ -49,6 +49,10 @@
               <div class="col-sm-10"><input type="text" name="salesautopilot_formid" value="<?php echo $salesautopilot_formid; ?>" class="form-control" /></div>
           </div>
           <div class="form-group">
+              <label class="col-sm-2 control-label"><?php echo $entry_salesautopilot_statuschangeformid; ?></label>
+              <div class="col-sm-10"><input type="text" name="salesautopilot_statuschangeformid" value="<?php echo $salesautopilot_statuschangeformid; ?>" class="form-control" /></div>
+          </div>
+          <div class="form-group">
               <label class="col-sm-2 control-label"><?php echo $entry_debug; ?></label>
               <div class="col-sm-10"><select name="salesautopilot_debug" class="form-control">
                   <?php if ($salesautopilot_debug) { ?>

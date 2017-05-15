@@ -38,5 +38,44 @@ class ControllerModuleSalesAutopilot extends Controller {
 			}
 		}
 	}
+
+	public function order_edit($order_id) {
+		if ($this->config->get('salesautopilot_status') && $this->config->get('salesautopilot_username') != '' && $this->config->get('salesautopilot_password') != '' 
+			&& is_numeric($this->config->get('salesautopilot_listid')) && is_numeric($this->config->get('salesautopilot_formid'))) {
+
+			if ($this->config->get('salesautopilot_debug')) {
+				$this->log->write("SalesAutopilot DEBUG: Send order to SalesAutopilot");
+			}
+			$this->load->model('checkout/salesautopilot');
+			$this->data['order_id'] = $order_id;
+			$orderData = $this->model_checkout_salesautopilot->getOrderInfo($order_id);
+
+			$headers = array(
+				'Accept: application/json',
+				'Content-Type: application/json'
+			);
+			$url = 'http://'.$this->config->get('salesautopilot_username').':'.$this->config->get('salesautopilot_password').'@sw.salesautopilot.com/sw/callback/opencart/'.$this->config->get('salesautopilot_statuschangeformid');
+			
+			$handle = curl_init();
+			curl_setopt($handle, CURLOPT_URL, $url);
+			curl_setopt($handle, CURLOPT_HTTPHEADER, $headers);
+			curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($handle, CURLOPT_USERAGENT, 'Opencart SalesAutopilot Module');
+			curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, false);
+			curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
+			curl_setopt($handle, CURLOPT_POST, true);
+			curl_setopt($handle, CURLOPT_POSTFIELDS, json_encode($orderData));
+			
+			$response = curl_exec($handle);
+			$info = curl_getinfo($handle);
+			if ($this->config->get('salesautopilot_debug')) {
+				if ($info['http_code'] == 200) {
+					$this->log->write("SalesAutopilot DEBUG: Order status change sent");
+				} else {
+					$this->log->write("SalesAutopilot DEBUG: Order status change can't send, respnose code: ".$info['http_code']);
+				}
+			}
+		}
+	}
 }	
 ?>

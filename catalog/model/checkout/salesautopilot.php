@@ -76,6 +76,7 @@ class ModelCheckoutSalesAutopilot extends Model {
 				'shipping_method'	=> $order_query->row['shipping_method'],
 				'payment_method'	=> $order_query->row['payment_method'],
 				'payment_code'		=> $order_query->row['payment_code'],
+				'order_status'		=> $order_query->row['order_status_id'],
 				'currency'			=> $order_query->row['currency_code'],
 				'mssys_bill_company'	=> $order_query->row['payment_company'],
 				'mssys_bill_country'	=> strtolower($paymentISOCode),

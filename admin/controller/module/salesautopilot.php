@@ -88,6 +88,7 @@ class ControllerModuleSalesAutopilot extends Controller {
         $data['entry_salesautopilot_password'] = $this->language->get('entry_salesautopilot_password');
         $data['entry_salesautopilot_listid'] = $this->language->get('entry_salesautopilot_listid');
         $data['entry_salesautopilot_formid'] = $this->language->get('entry_salesautopilot_formid');
+        $data['entry_salesautopilot_statuschangeformid'] = $this->language->get('entry_salesautopilot_statuschangeformid');
         $data['entry_debug'] = $this->language->get('entry_debug');
 		
 		//SET UP BREADCRUMB TRAIL. YOU WILL NOT NEED TO MODIFY THIS UNLESS YOU CHANGE YOUR MODULE NAME.
@@ -144,6 +145,11 @@ class ControllerModuleSalesAutopilot extends Controller {
 		} else {
 			$data['salesautopilot_formid'] = $this->config->get('salesautopilot_formid');
 		}
+		if (isset($this->request->post['salesautopilot_statuschangeformid'])) {
+			$data['salesautopilot_statuschangeformid'] = $this->request->post['salesautopilot_statuschangeformid'];
+		} else {
+			$data['salesautopilot_statuschangeformid'] = $this->config->get('salesautopilot_statuschangeformid');
+		}
 		
 		if (isset($this->request->post['salesautopilot_debug'])) {
 			$data['salesautopilot_debug'] = $this->request->post['salesautopilot_debug'];
@@ -197,6 +203,7 @@ class ControllerModuleSalesAutopilot extends Controller {
 	public function install() {
 		$this->load->model('extension/event');
 		$this->model_extension_event->addEvent('salesautopilot', 'post.order.history.add', 'module/salesautopilot/index');
+		$this->model_extension_event->addEvent('salesautopilot', 'post.order.edit', 'module/salesautopilot/order_edit');
 	}
 
 	/**
