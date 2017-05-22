@@ -44,7 +44,6 @@ $_['entry_salesautopilot_username']    = 'API username:';
 $_['entry_salesautopilot_password']    = 'API password:';
 $_['entry_salesautopilot_listid']    = 'Order list ID:';
 $_['entry_salesautopilot_formid']    = 'Form ID:';
-$_['salesautopilot_statuschangeformid']    = 'Status change update form ID:';
 $_['entry_debug']    	  = 'Debug:';
 
 // Error

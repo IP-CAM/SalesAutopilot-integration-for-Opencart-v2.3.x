@@ -1,5 +1,5 @@
 ﻿<?php 
-class ControllerModuleSalesAutopilot extends Controller { 
+class ControllerExtensionModuleSalesAutopilot extends Controller { 
 	public function index($order_id) { 
 		if ($this->config->get('salesautopilot_status') && $this->config->get('salesautopilot_username') != '' && $this->config->get('salesautopilot_password') != '' 
 			&& is_numeric($this->config->get('salesautopilot_listid')) && is_numeric($this->config->get('salesautopilot_formid'))) {
@@ -54,7 +54,7 @@ class ControllerModuleSalesAutopilot extends Controller {
 				'Accept: application/json',
 				'Content-Type: application/json'
 			);
-			$url = 'http://'.$this->config->get('salesautopilot_username').':'.$this->config->get('salesautopilot_password').'@sw.salesautopilot.com/sw/callback/opencart/'.$this->config->get('salesautopilot_statuschangeformid');
+			$url = 'http://'.$this->config->get('salesautopilot_username').':'.$this->config->get('salesautopilot_password').'@sw.salesautopilot.com/sw/callback/opencart/statuschange/'.$this->config->get('salesautopilot_statuschangeformid');
 			
 			$handle = curl_init();
 			curl_setopt($handle, CURLOPT_URL, $url);
