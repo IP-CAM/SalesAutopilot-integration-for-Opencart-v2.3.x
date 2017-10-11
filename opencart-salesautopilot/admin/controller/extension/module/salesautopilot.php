@@ -2,7 +2,7 @@
 ################################################################################################
 #  DIY Module Builder for Opencart 1.5.1.x From HostJars http://opencart.hostjars.com  		   #
 ################################################################################################
-class ControllerExtensionModuleSalesAutopilot extends Controller {
+class ControllerExtensionModuleSalesAutopilot extends Controller { 
 	
 	private $error = array(); 
 	
@@ -22,6 +22,7 @@ class ControllerExtensionModuleSalesAutopilot extends Controller {
 					
 			$this->session->data['success'] = $this->language->get('text_success');
 						
+			//$this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'], 'SSL'));
 			$this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'] . '&type=module', true));
 		}
 
@@ -101,7 +102,7 @@ class ControllerExtensionModuleSalesAutopilot extends Controller {
 
    		$data['breadcrumbs'][] = array(
        		'text'      => $this->language->get('text_module'),
-			'href'      => $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL'),
+			'href'      => $this->url->link('extension/module/salesautopilot', 'token=' . $this->session->data['token'], 'SSL'),
       		'separator' => ' :: '
    		);
 		
@@ -113,7 +114,7 @@ class ControllerExtensionModuleSalesAutopilot extends Controller {
 		
 		$data['action'] = $this->url->link('extension/module/salesautopilot', 'token=' . $this->session->data['token'], 'SSL');
 		
-		$data['cancel'] = $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL');
+		$data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token'], 'SSL');
 		
 		if (isset($this->request->post['salesautopilot_status'])) {
 			$data['salesautopilot_status'] = $this->request->post['salesautopilot_status'];
@@ -144,12 +145,6 @@ class ControllerExtensionModuleSalesAutopilot extends Controller {
 		} else {
 			$data['salesautopilot_formid'] = $this->config->get('salesautopilot_formid');
 		}
-
-		if (isset($this->request->post['salesautopilot_statuschangeformid'])) {
-			$data['salesautopilot_statuschangeformid'] = $this->request->post['salesautopilot_statuschangeformid'];
-		} else {
-			$data['salesautopilot_statuschangeformid'] = $this->config->get('salesautopilot_statuschangeformid');
-		}
 		
 		if (isset($this->request->post['salesautopilot_debug'])) {
 			$data['salesautopilot_debug'] = $this->request->post['salesautopilot_debug'];
@@ -173,10 +168,11 @@ class ControllerExtensionModuleSalesAutopilot extends Controller {
 
 		//Choose which template file will be used to display this request.
 		$data['header'] = $this->load->controller('common/header');
+		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
 		//Send the output.
-		$this->response->setOutput($this->load->view('extension/module/salesautopilot', $data));
+		$this->response->setOutput($this->load->view('extension/module/salesautopilot.tpl', $data));
 	}
 	
 	/*
@@ -202,8 +198,7 @@ class ControllerExtensionModuleSalesAutopilot extends Controller {
 	  */
 	public function install() {
 		$this->load->model('extension/event');
-		$this->model_extension_event->addEvent('salesautopilot', 'post.order.history.add', 'extension/module/salesautopilot/index');
-		$this->model_extension_event->addEvent('salesautopilot', 'post.order.edit', 'extension/module/salesautopilot/order_edit');
+		$this->model_extension_event->addEvent('salesautopilot', 'post.order.history.add', 'module/salesautopilot/index');
 	}
 
 	/**

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modification>
+	<id>Sales Auto Pilot vqmod</id>
+	<version>2.3.X</version>
+	<vqmver required="true">2.4.0</vqmver>
+	<author>Gegeny Richard</author>
+	
+	<file name="catalog/controller/checkout/success.php">
+        <operation>
+            <search position="before"><![CDATA[$this->cart->clear();]]></search>
+            <add><![CDATA[$this->load->controller('module/salesautopilot');]]></add>
+        </operation>
+    </file>
+</modification>
