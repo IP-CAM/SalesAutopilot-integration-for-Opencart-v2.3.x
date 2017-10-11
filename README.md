@@ -1,26 +1,23 @@
-=========================================================================
 SalesAutopilot integration for OpenCart v2.3.x
 Author: Gyorgy Khauth
 Author Email: gykhauth@salesautopilot.com
 
-=========================================================================
-Description
-=========================================================================
+
+# Description
+
 This module sends orders to a SalesAutopilot order list.
 
-=========================================================================
-Compatibilities
--------------------------------------------------------------------------
+# Compatibilities
+
 - opencart v2.3.x 
 
-=========================================================================
-Installation Instruction
-=========================================================================
-Step 1:
+# Installation Instruction
+
+*Step 1:*
 Copy the admin,catalog,vqmod folders to your store's top level directory, 
 preserving the directory structure.
 
-Step 2:
+*Step 2:*
 Log into your OpenCart 'Administration'. 
 Go to 'Extensions' -> 'Modules'
 Click 'Install' for 'SalesAutopilot'
@@ -37,7 +34,6 @@ List ID' field, the Form ID to the 'Form ID' field in Opencart.
 Enable Debug if you experience any trouble. It helps us to solve the problem.
 Click 'Save'
 
-=========================================================================
-Acknowledgements
-=========================================================================
+# Acknowledgements
+
 Many thanks to Richárd Gégény for the rewrite and making this module bug-free.
